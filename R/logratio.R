@@ -10,9 +10,9 @@
 #' @export
 logratio = function(CC){
   if (min(CC) < 0) stop("Elements of the matrix cannot be negative")
-  CC[CC==0] = 1e-5
   if (all( round(rowSums(CC),6) == 100)) CC = CC/100
   if (any(round(rowSums(CC),6) != 1)) stop("Matrix is not compositional data. All rows must sum 1 or 100")
+  CC[CC==0] = 1e-10
 
   t(apply(log10(CC),1,function(x) scale(x,scale=FALSE)))
 }
